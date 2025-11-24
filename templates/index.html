@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Transfer Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">✨ Style Transfer Studio</h1>
+            <p class="subtitle">Transform your text with AI-powered style analysis</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Step 1: Analyze Style -->
+            <section class="card">
+                <div class="card-header">
+                    <span class="step-number">1</span>
+                    <h2>Analyze Stylized Text</h2>
+                </div>
+                <div class="card-body">
+                    <p class="hint">Paste text in your target style (min. 5 sentences for better results)</p>
+                    <textarea 
+                        id="stylizedText" 
+                        class="textarea" 
+                        placeholder="Enter stylized text here...&#10;&#10;Example:&#10;Upon the midnight dreary, as I pondered weak and weary,&#10;Over many a quaint and curious volume of forgotten lore—&#10;While I nodded, nearly napping, suddenly there came a tapping,&#10;As of some one gently rapping, rapping at my chamber door."
+                        rows="8"></textarea>
+                    
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="styleName" 
+                            class="input" 
+                            placeholder="Style name (e.g., Edgar Allan Poe)"
+                            value="Edgar Allan Poe">
+                    </div>
+                    
+                    <button onclick="analyzeStyle()" class="btn btn-primary" id="analyzeBtn">
+                        <span class="btn-icon">🔍</span>
+                        Analyze Style
+                    </button>
+                    
+                    <div id="analysisResult" class="result-box" style="display: none;">
+                        <h3>Style Analysis Complete ✓</h3>
+                        <div id="styleDetails" class="style-details"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Apply Style -->
+            <section class="card">
+                <div class="card-header">
+                    <span class="step-number">2</span>
+                    <h2>Apply Style to Your Text</h2>
+                </div>
+                <div class="card-body">
+                    <p class="hint">Enter the text you want to transform</p>
+                    <textarea 
+                        id="originalText" 
+                        class="textarea" 
+                        placeholder="Enter your original text here...&#10;&#10;Example:&#10;I went to the store yesterday. It was a nice day outside."
+                        rows="6"></textarea>
+                    
+                    <button onclick="transferStyle()" class="btn btn-secondary" id="transferBtn" disabled>
+                        <span class="btn-icon">✨</span>
+                        Transform Text
+                    </button>
+                    
+                    <div id="transferResult" class="result-box" style="display: none;">
+                        <h3>Transformed Text</h3>
+                        <div class="comparison-grid">
+                            <div class="text-box original">
+                                <h4>Original</h4>
+                                <p id="originalDisplay"></p>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="text-box styled">
+                                <h4>Styled</h4>
+                                <p id="styledDisplay"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p class="loading-text">Processing...</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by 100+ linguistic features • VADER • GoEmotions • spaCy</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
