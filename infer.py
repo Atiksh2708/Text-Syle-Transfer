@@ -1328,7 +1328,29 @@ def main():
 
     # 1. Load corpus
     print("\n[1] Loading corpus...")
-    corpus = load_corpus("data/style_train.txt")
+    corpus = '''
+    Every morning you wake up holding a new contract with your future; sign it with action, not excuses, and let small consistent efforts quietly stack into results that once felt completely unreachable.
+
+Motivation is the spark but discipline is the engine; when the excitement fades habits keep moving you forward step by step even on days when your mood begs for an easy escape.
+
+When everything feels overwhelming shrink the battlefield; break the massive project into tiny winnable tasks and celebrate each small victory until progress becomes a habit instead of a rare surprise.
+
+Your environment is training you every day; choose people tools and routines that challenge you to rise higher instead of ones that reward procrastination and pretend to be harmless.
+
+Failure is not a final verdict it is detailed feedback; study what went wrong like a coach reviews game footage adjust your approach and return with greater clarity and courage.
+
+Stop waiting for perfect conditions; storms will not request permission before arriving and neither should your growth. Start where you are with what you have and let momentum polish the rest.
+
+Track your wins even the tiny ones; your brain trusts evidence more than inspiration and a simple list of daily progress can transform doubt into confidence rooted in reality.
+
+Comparing your progress to someone else’s highlight reel is a rigged game; measure against your past self and let each improved choice be proof that you are moving in the right direction.
+
+Treat sleep nutrition and movement as non negotiable teammates not optional extras; a tired underfed body cannot carry ambitious goals no matter how inspiring your vision board appears.
+
+You are not aiming to become flawless; you are learning to stumble forward adjust quickly and keep promises to yourself more often than you break them because that is what real growth looks like.
+
+
+    '''
     print(f"[OK] Loaded {len(corpus)} samples")
 
     # 2. Analyze style
@@ -1429,7 +1451,7 @@ def main():
     print("\n[5] Testing style transfer with Ollama...")
     engine = StyleTransferEngine()
 
-    test_text = "I went to the mall. It was a nice day."
+    test_text = "I will go to the mall today. I have to buy groceries."
     result = engine.transfer(test_text, style_vector, "Edgar Allan Poe")
 
     print("\n" + "="*80)

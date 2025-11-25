@@ -1,48 +1,113 @@
-# Style-Controlled Text Rewriting using Future Regressor + EBM (with MH Refinement)
+# Articunet — AI-Powered Text Style Transfer ✨
 
-This repository implements a lightweight version of the STYLEMC framework for **style-controlled text rewriting**.  
-Given 20–50 writing samples from a user, the system learns their style representation and rewrites any neutral text to match it — while preserving meaning and fluency.
-
-**1. No fine-tuning of the base LLM  
-**2. GPU-friendly (LLaMA-1B + flan-T5-base)  
-**3. Style-aware scoring using Product-of-Experts  
-**4. Metropolis–Hastings refinement for global consistency
+Articunet is a hybrid text style transfer system that blends **Transformer-based style encoders** with **semantic attribute ensembles** (e.g., sentiment metrics, readability features).
+A **frozen LLM** acts as the generation backbone, guided by a **learned regressor over content & style representations** — enabling controllable style rewriting while preserving meaning.
 
 ---
 
-##  How It Works
+## 🚀 Features
 
-### **1) User Style Extraction**
-- Uses **CISR style encoder**
-- Computes a 768-dimensional averaged style vector from 20–50 example sentences
-
-### **2) Candidate Generation**
-- Frozen **LLaMA-3.2-1B** generates multiple paraphrase candidates
-
-### **3) Energy-Based Scoring (E1–E4 Experts)**
-| Expert | Purpose |
-|-------|---------|
-| **E1** | Future Regressor (style likelihood) |
-| **E2** | CISR cosine similarity (style match) |
-| **E3** | Semantic similarity via MPNet |
-| **E4** | Edit-distance penalty |
-
-### **4) Metropolis-Hastings Refinement**
-- Uses **flan-T5-base** to propose small edits
-- Accepts only lower-energy samples
-- Produces final globally consistent rewrite
+✔ Hybrid Transformer + Ensemble style extraction
+✔ Target author style learned from **10–20 input examples**
+✔ Web UI (Flask app) + CLI inference ✓
+✔ Fast inference using **Ollama** 
+✔ No expensive fine-tuning required
 
 ---
 
-## Installation
+## 📦 Installation
 
-# Model Weights
-
-Download the trained model weights from [Google Drive](https://drive.google.com/file/d/1sUo-prHaGHVCgOcxeMvkAICpuj0JBKDO/view?usp=sharing) (22 MB)
-
-Place the downloaded `future_regressor.pt` file in the root directory.
+### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/Atiksh2708/Text-Syle-Transfer.git
-cd yourrepo
+cd Text-Style-Transfer
+```
+(current root directory)
+
+### 2️⃣ Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🧠 Ollama Setup (LLM Backend)
+
+Articunet uses Ollama for inference.
+
+Install Ollama:
+
+**Linux / WSL**
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+**Windows**
+Download: [https://ollama.com/download](https://ollama.com/download)
+
+**macOS**
+
+```bash
+brew install ollama
+```
+
+> 🔹 If required, ensure Ollama is added to PATH or environment variables.
+
+Then pull the required model:
+
+```bash
+ollama pull gemma3:4b
+```
+
+Start the Ollama service (if not auto-started):
+
+```bash
+ollama serve
+```
+
+---
+
+## ▶️ Running the Application
+
+### ✨ Full Web App Demo (Recommended)
+
+```bash
+python app.py
+```
+
+Then open in browser:
+
+```
+http://127.0.0.1:5002/
+```
+
+📌 **How to Use UI**
+
+* Paste **10–20 target style texts** (e.g., works of the author you want to mimic)
+* Click on **Analyze Style** button
+* Enter your **test sentence** to rewrite
+* Click **Transform Text**
+
+---
+
+### 💻 Terminal-Based Inference
+
+```bash
 python infer.py
+```
+
+📌 Put your texts here inside `infer.py`:
+
+| Section               | Line No. | What to Edit                               |
+| --------------------- | -------- | ------------------------------------------ |
+| Target style examples | `~1331`  | Insert 10–20 sentences (newline-separated) |
+| Test sentence         | `~1454`  | Insert one input sentence to rewrite       |
+
+Run and get output instantly in the terminal.
+
+
+
+
+
